@@ -34,7 +34,7 @@ public class TestController {
     private TestService testService;
 
     @RequestMapping("/select")
-    public String word(){
+    public String select(){
         String selectStr = "";
         try {
             selectStr = testService.getList().toString();
@@ -43,6 +43,47 @@ public class TestController {
             e.printStackTrace();
         }
         return selectStr;
+    }
+
+    @RequestMapping("/select-single")
+    public String selectSingle(){
+        Person person = new Person();
+        try {
+            person = testService.getSinglePerson();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return person.toString();
+    }
+
+    @RequestMapping("/save")
+    public String saveSingle(){
+        try {
+            testService.saveSinglePerson();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @RequestMapping("/update")
+    public String updateSingle(){
+        try {
+            testService.updateSinglePerson();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @RequestMapping("/delete")
+    public String deleteSingle(){
+        try {
+            testService.deleteSinglePerson();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

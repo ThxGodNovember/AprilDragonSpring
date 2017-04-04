@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="test@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+    <root id="1"/>
+    <schema id="2" parent="1" name="test">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="03_wyc_fwmusic"/>
+    <schema id="4" parent="1" name="carsys"/>
+    <schema id="5" parent="1" name="coolmeeting"/>
+    <schema id="6" parent="1" name="information_schema"/>
+    <schema id="7" parent="1" name="joomla"/>
+    <schema id="8" parent="1" name="joomla1"/>
+    <schema id="9" parent="1" name="logintest"/>
+    <schema id="10" parent="1" name="maijiayun"/>
+    <schema id="11" parent="1" name="meeting"/>
+    <schema id="12" parent="1" name="messagebox"/>
+    <schema id="13" parent="1" name="monitor"/>
+    <schema id="14" parent="1" name="myfriend"/>
+    <schema id="15" parent="1" name="mysql"/>
+    <schema id="16" parent="1" name="performance_schema"/>
+    <schema id="17" parent="1" name="shopping"/>
+    <schema id="18" parent="1" name="study"/>
+    <schema id="19" parent="1" name="travel"/>
+    <schema id="20" parent="1" name="zlw_db"/>
+    <schema id="21" parent="1" name="zlw_ebid"/>
+    <schema id="22" parent="1" name="zlw_ebid_bwcg"/>
+    <table id="23" parent="2" name="person"/>
+    <table id="24" parent="2" name="student"/>
+    <table id="25" parent="2" name="t1"/>
+    <table id="26" parent="2" name="t3"/>
+    <table id="27" parent="2" name="t4"/>
+    <column id="28" parent="23" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="29" parent="23" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="30" parent="23" name="sex">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="31" parent="23" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="32" parent="24" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="33" parent="24" name="name">
+      <Position>2</Position>
+      <DataType>varchar(22)|0</DataType>
+    </column>
+    <column id="34" parent="24" name="score">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="35" parent="24" name="id">
+      <ColNames>id</ColNames>
+    </index>
+    <column id="36" parent="25" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="37" parent="25" name="vname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <index id="38" parent="25" name="id">
+      <ColNames>id</ColNames>
+    </index>
+    <column id="39" parent="26" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="40" parent="26" name="name">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="41" parent="26" name="id">
+      <ColNames>id</ColNames>
+    </index>
+    <column id="42" parent="27" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="43" parent="27" name="name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="44" parent="27" name="g">
+      <Position>3</Position>
+      <DataType>geometry|0</DataType>
+    </column>
+    <index id="45" parent="27" name="multi">
+      <ColNames>id
+name</ColNames>
+    </index>
+  </database-model>
+</dataSource>

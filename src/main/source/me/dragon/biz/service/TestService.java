@@ -13,5 +13,13 @@ import java.util.List;
  */
 @Service
 public interface TestService extends BaseService{
+    // select
     List<Person> getList();
+    Person getSinglePerson();
+    // insert
+    void saveSinglePerson();
+    // update
+    void updateSinglePerson();
+    // delete
+    void deleteSinglePerson();
 }

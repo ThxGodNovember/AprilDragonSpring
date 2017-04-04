@@ -1,5 +1,6 @@
 package me.dragon.biz.dao.impl;
 
+import me.dragon.base.dao.GenericDao;
 import me.dragon.biz.dao.TestDao;
 import me.dragon.biz.entity.Person;
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,8 +19,9 @@ import java.util.List;
  */
 
 @Repository
+@Transactional
 @EnableAutoConfiguration
-public class TestDaoImpl implements TestDao{
+public class TestDaoImpl extends GenericDao implements TestDao{
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -39,4 +42,58 @@ public class TestDaoImpl implements TestDao{
         return list;
     }
 
+    @Override
+    public Person getSinglePerson() {
+        Person person = new Person();
+        try{
+            String hql = "from Person where id = ?";
+            person = (Person) findUnique(hql,1L);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return person;
+    }
+
+    @Override
+    public void saveSinglePerson() {
+        Person person = new Person();
+        try{
+            person.setName("dragon");
+            person.setSex("man");
+            save(person);
+            logger.info("保存成功");
+        }catch (Exception e){
+            logger.info("保存失败");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateSinglePerson() {
+        Person person = new Person();
+        try{
+            String hql = "from Person where id = ?";
+            person = (Person) findUnique(hql,1L);
+            person.setName("dragon-yuan");
+            person.setSex("man");
+            save(person);
+            logger.info("更新成功");
+        }catch (Exception e){
+            logger.info("更新失败");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteSinglePerson() {
+        try{
+            String hql = "from Person where id = ?";
+            Person person = (Person) findUnique(hql,2L);
+            delete(person);
+            logger.info("删除成功");
+        }catch (Exception e){
+            logger.info("删除失败");
+            e.printStackTrace();
+        }
+    }
 }
