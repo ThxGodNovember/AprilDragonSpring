@@ -1,5 +1,6 @@
 package me.dragon.biz.service;
 
+import me.dragon.base.core.Page;
 import me.dragon.base.service.BaseService;
 import me.dragon.biz.entity.Person;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,7 @@ import java.util.List;
 public interface TestService extends BaseService{
     // select
     List<Person> getList();
+    Page<Person> getPage(int pageNum);
     Person getSinglePerson();
     // insert
     void saveSinglePerson();

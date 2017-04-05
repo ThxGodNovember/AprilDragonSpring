@@ -1,5 +1,6 @@
 package me.dragon.biz.service.impl;
 
+import me.dragon.base.core.Page;
 import me.dragon.biz.dao.TestDao;
 import me.dragon.biz.dao.impl.TestDaoImpl;
 import me.dragon.biz.entity.Person;
@@ -48,5 +49,12 @@ public class TestServiceImpl implements TestService{
     @Override
     public void deleteSinglePerson() {
         testDao.deleteSinglePerson();
+    }
+
+    @Override
+    public Page<Person> getPage(int pageNum) {
+        Page<Person> personPage = new Page<Person>();
+        personPage = testDao.getPage(pageNum);
+        return personPage;
     }
 }

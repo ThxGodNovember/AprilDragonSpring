@@ -1,5 +1,6 @@
 package me.dragon.biz.dao;
 
+import me.dragon.base.core.Page;
 import me.dragon.base.dao.BaseDao;
 import me.dragon.biz.entity.Person;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,7 @@ import java.util.List;
 public interface TestDao extends BaseDao{
     // select
     List<Person> getList();
+    Page<Person> getPage(int pageNum);
     Person getSinglePerson();
     // insert
     void saveSinglePerson();

@@ -2,7 +2,7 @@ package me.dragon.app;
 
 import me.dragon.base.controller.ControllerDemo;
 import me.dragon.base.controller.RestControllerDemo;
-import me.dragon.biz.controller.TestController;
+import me.dragon.biz.controller.TestInterfaceController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,7 +26,7 @@ public class SpringBootStartApplication extends SpringBootServletInitializer {
                 SpringBootStartApplication.class,
                 ControllerDemo.class,
                 RestControllerDemo.class,
-                TestController.class
+                TestInterfaceController.class
         );
     }
 

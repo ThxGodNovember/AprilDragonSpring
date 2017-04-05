@@ -1,6 +1,8 @@
 package me.dragon.base.dao;
 
+import me.dragon.base.core.Page;
 import me.dragon.base.core.ReflectionUtils;
+import me.dragon.base.core.ToBeanResultTransformSafety;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -15,17 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dragon on 4/4/2017.
  */
 @Repository
 @Transactional
-@EnableAutoConfiguration
 public class GenericDao<T, PK extends Serializable> {
 
     protected Logger logger = Logger.getLogger(getClass());
@@ -370,6 +368,112 @@ public class GenericDao<T, PK extends Serializable> {
             }
         }
         return query.list();
+    }
+
+    /**
+     * 得到对象分页列表(1.1版)
+     *
+     * @param sql
+     * @param firstResult
+     * @param maxResult
+     * @param pojoClass
+     * @return
+     */
+    public List findListWithSQL( String sql, final int firstResult,
+                                 int maxResult,  Class pojoClass) {
+        SQLQuery query = getSession().createSQLQuery(sql);
+
+        if (firstResult >= 0) {
+            query.setFirstResult(firstResult);
+        }
+
+        if (maxResult > 0) {
+            query.setMaxResults(maxResult);
+        }
+
+        List resultList = null;
+
+        if (pojoClass != null || pojoClass != java.util.HashMap.class) {
+            resultList = query.setResultTransformer(
+                    new ToBeanResultTransformSafety(pojoClass)).list();
+        }
+
+        query = null;
+
+        return resultList;
+
+    }
+
+    /**
+     * 统计记录数(1.1版)
+     */
+    public int countWithSQL(String sql) {
+        return this.count(sql, false);
+    }
+
+    /**
+     * 用 count(*) from 进行统计(1.1版)
+     *
+     * @param queryStr
+     * @param isHSQL
+     *            true:HSQL;false:SQL
+     * @return
+     */
+    private int count(String queryStr, final boolean isHSQL) {
+        String sql = queryStr;
+        String result = "0";
+        Session session = getSession();
+        if (isHSQL) {
+            result = String.valueOf(session.createQuery(sql)
+                    .iterate().next());
+        } else {
+            result = String.valueOf(session.createSQLQuery(sql)
+                    .uniqueResult());
+        }
+
+        return new Integer(result).intValue();
+    }
+
+    /**
+     * 分页查询(1.1版)
+     */
+    @SuppressWarnings("unchecked")
+    public Page findPageWithSQL(String sql, int pageSize, int pageNum,
+                                Class modeClass) {
+        Page page = new Page();
+        page.setPageSize(pageSize);
+        page.setPageNo(pageNum);
+
+        String countSql = new StringBuffer("select count(*) as count from (")
+                .append(sql).append(") count_temp ").toString();
+        int count = countWithSQL(countSql);
+
+        if (count < 1) {
+            List list = new ArrayList();
+            page.setResult(list);
+            page.setTotalCount(0);
+            return page;
+        }
+
+        pageSize = pageSize > 0 ? pageSize : 15;
+        pageNum = pageNum > 0 ? pageNum : 1;
+
+        int firstResult = (pageNum - 1) * pageSize;// 第一条是1
+        int maxResult = pageSize;
+
+        List resultList = findListWithSQL(sql, firstResult, maxResult, modeClass);
+
+        page.setResult(resultList==null?new ArrayList():resultList);
+        page.setTotalCount(count);
+        return page;
+
+    }
+
+    /**
+     * 分页查询(1.1版)
+     */
+    public Page findPageMapWithSQL(String sql, int pageSize, int pageNumber) {
+        return findPageWithSQL(sql, pageSize, pageNumber, java.util.HashMap.class);
     }
 }
 

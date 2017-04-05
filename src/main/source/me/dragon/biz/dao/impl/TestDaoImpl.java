@@ -1,5 +1,6 @@
 package me.dragon.biz.dao.impl;
 
+import me.dragon.base.core.Page;
 import me.dragon.base.dao.GenericDao;
 import me.dragon.biz.dao.TestDao;
 import me.dragon.biz.entity.Person;
@@ -20,7 +21,6 @@ import java.util.List;
 
 @Repository
 @Transactional
-@EnableAutoConfiguration
 public class TestDaoImpl extends GenericDao implements TestDao{
 
     @Autowired
@@ -95,5 +95,17 @@ public class TestDaoImpl extends GenericDao implements TestDao{
             logger.info("删除失败");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Page<Person> getPage(int pageNum) {
+        Page<Person> personPage = new Page<Person>();
+        try{
+            String sql = "select * from Person";
+            personPage = findPageWithSQL(sql,1,pageNum,Person.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return personPage;
     }
 }
