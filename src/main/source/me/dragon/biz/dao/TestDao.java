@@ -21,6 +21,7 @@ public interface TestDao extends BaseDao{
     // select
     List<Person> getList();
     Page<Person> getPage(int pageNum);
+    Page<Person> getResultWithPage(Page flagPage);
     Person getSinglePerson();
     // insert
     void saveSinglePerson();

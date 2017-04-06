@@ -60,7 +60,7 @@
         </tr>
     </c:forEach>
 </table>
-<div class="page" ng-show="isShow">
+<div class="page">
     共有<span>${personPage.totalCount}</span>条，每页显示：1条
     <div class="bor">
         <a class="dif" href="javascript:goPage('first');" class="" title="首页">«</a>
@@ -103,10 +103,6 @@
             pageNo = 1;
         }else if("last" == pageNo){
             pageNo = pages;
-        }else if(pageNo > pages){
-            pageNo = pages;
-        }else if(pageNo < 1){
-            pageNo = 1;
         }else if("go" == pageNo){
             var pageStr = $.trim($("#toPage").val());
             if("" == pageStr){
@@ -126,6 +122,10 @@
                 return;
             }
             pageNo = pageStr;
+        }else if(pageNo > pages){
+            pageNo = pages;
+        }else if(pageNo < 1){
+            pageNo = 1;
         }
         href('${ctx}/page.do?pageNum=' + pageNo);
     }

@@ -57,4 +57,11 @@ public class TestServiceImpl implements TestService{
         personPage = testDao.getPage(pageNum);
         return personPage;
     }
+
+    @Override
+    public Page<Person> getResultWithPage(Page flagPage) {
+        Page<Person> personPage = new Page<Person>();
+        personPage = testDao.getResultWithPage(flagPage);
+        return personPage;
+    }
 }

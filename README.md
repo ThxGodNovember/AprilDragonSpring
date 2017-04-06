@@ -4,12 +4,18 @@
 master
 ---
 
+- 修正了分页存在的问题 
+* 新增了异步处理分页的方法，现在可以自定义每页显示数据的数量 
+- 新增了Spring Boot原汁定时器的使用情景 
+
+gamma
+---
+
 - 修正了对Dao层的注解 
 * 新增异步处理，封装了对AJAX的请求 
 	* 页面调用getData(url, data)和postData(url, data)两种请求方式 
-	* 后端使用ajaxSuccess(Object msg)、ajaxError(Object msg)、ajaxParam(String flag, Object msg, Object param)三种处理方式
+	* 后端使用ajaxSuccess(Object msg)、ajaxError(Object msg)、ajaxParam(String flag, Object msg, Object param)三种方法处理方式
 * 新增分页功能，详见page 
-	* 入口 page.do 或 page.do?pageNum=1 
 
 beta
 ---

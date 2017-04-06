@@ -1,6 +1,7 @@
 package me.dragon.base.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import me.dragon.base.core.Page;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,4 +58,17 @@ public class GenericController {
 
         return null;
     }
+
+
+    /**
+     * 初始分页
+     */
+    public Page initPage = new Page();
+    @ModelAttribute
+    public Page getInitPage() {
+        initPage.setPageNo(1);
+        initPage.setPageSize(10);
+        return initPage;
+    }
+
 }

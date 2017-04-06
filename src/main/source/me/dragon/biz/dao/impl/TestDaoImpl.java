@@ -108,4 +108,16 @@ public class TestDaoImpl extends GenericDao implements TestDao{
         }
         return personPage;
     }
+
+    @Override
+    public Page<Person> getResultWithPage(Page flagPage) {
+        Page<Person> personPage = new Page<Person>();
+        try{
+            String sql = "select * from Person";
+            personPage = findPageWithSQL(sql,flagPage.getPageSize(),flagPage.getPageNo(),Person.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return personPage;
+    }
 }

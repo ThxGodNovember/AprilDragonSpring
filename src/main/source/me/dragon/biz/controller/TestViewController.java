@@ -1,6 +1,7 @@
 package me.dragon.biz.controller;
 
 import me.dragon.base.controller.GenericController;
+import me.dragon.base.core.FlagPage;
 import me.dragon.base.core.Page;
 import me.dragon.biz.entity.Person;
 import me.dragon.biz.service.TestService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class TestViewController extends GenericController{
      * Object
      */
     private String nameStr;
-    private String pageNum = "1";
+    private Page initPage = new Page();
 
     @RequestMapping("/view.do")
     public ModelAndView testSpringBootView() {
@@ -50,6 +52,11 @@ public class TestViewController extends GenericController{
         return null;
     }
 
+    /**
+     * 只传递页码数的分页，每页显示多少条数据需要写死
+     * @param pageNum
+     * @return
+     */
     @RequestMapping("/page.do")
     public ModelAndView showPage(@RequestParam(defaultValue  = "1")String pageNum) {
         ModelAndView modelAndView = null;
@@ -62,6 +69,37 @@ public class TestViewController extends GenericController{
             e.printStackTrace();
         }
         return modelAndView;
+    }
+
+    @RequestMapping("/page2.do")
+    public ModelAndView showSecondPage() {
+        ModelAndView modelAndView = null;
+        try {
+            modelAndView = new ModelAndView("page2");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping("/getResultByAjax.do")
+    @ResponseBody
+    public String showSecondPage2(@RequestParam String pageNo,String pageSize) {
+        Page flagPage = new Page();
+        if(null == pageNo || null == pageSize){
+            flagPage = getInitPage();
+        }else{
+            flagPage.setPageNo(Integer.parseInt(pageNo));
+            flagPage.setPageSize(Integer.parseInt(pageSize));
+        }
+        try {
+            ModelMap params = new ModelMap();
+            Page<Person> personPage = testService.getResultWithPage(flagPage);
+            ajaxParam("T",null,personPage);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

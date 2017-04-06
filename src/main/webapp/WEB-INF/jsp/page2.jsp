@@ -46,27 +46,25 @@
     </style>
 </head>
 <body>
-<table width="90%" class="table">
+<table class="table">
+    <thead>
     <tr>
-        <th>标识</th>
-        <th>姓名</th>
-        <th>性别</th>
+        <td>标识</td>
+        <td>姓名</td>
+        <td>性别</td>
     </tr>
-    <c:forEach items="${personPage.result}" var="person">
-        <tr>
-            <td>${person.id}</td>
-            <td>${person.name}</td>
-            <td>${person.sex}</td>
-        </tr>
-    </c:forEach>
+    </thead>
+    <tbody id="resultTB">
+    </tbody>
 </table>
 <div class="page">
-    共有<span>${personPage.totalCount}</span>条，每页显示：1条
+    <input type="hidden" id="total" value="">
+    共有<span id="totalSpan"></span>条，每页显示：<span id="sizeSpan"></span>条
     <div class="bor">
         <a class="dif" href="javascript:goPage('first');" class="" title="首页">«</a>
-        <a href="javascript:goPage('${personPage.pageNo - 1}');" class="glyphicon glyphicon-menu-left" title="上一页"></a>
-        <a class="text-blue" href="javascript:void(0);">${personPage.pageNo}</a>
-        <a href="javascript:goPage('${personPage.pageNo + 1}');" class="glyphicon glyphicon-menu-right" title="下一页"></a>
+        <a href="javascript:goPage('');" class="glyphicon glyphicon-menu-left" title="上一页"></a>
+        <a class="text-blue" href="javascript:void(0);"><span id="nowSpan"></span></a>
+        <a href="javascript:goPage('');" class="glyphicon glyphicon-menu-right" title="下一页"></a>
         <a class="dif last" href="javascript:goPage('last');" title="尾页">»</a>
     </div>
     <input type="text" class="form-control wid" id="toPage" />
@@ -87,7 +85,7 @@
             <div class="modal-body modal-body-info text-center" id="hintMessage">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="tsqr();">确认</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
             </div>
         </div>
     </div>
@@ -95,10 +93,48 @@
 </body>
 
 <script>
+    var initPageSize = 2;
+    $(document).ready(function(){
+        getResultByPage(1,initPageSize);
+    })
+</script>
+<script>
+    function getResultByPage(pageNo,pageSize) {
+        var result = postData("${ctx}/getResultByAjax.do",{"pageNo":pageNo,"pageSize":pageSize});
+        if(null != result){
+            var str = "";
+            if("T" == result.flag){
+                var rs = result.param.result;
+                $("#resultTB").empty();
+                for(var i = 0; i < rs.length; i++){
+                    str += '<tr>';
+                    str += '<th>' + rs[i].id + '</th>';
+                    str += '<th>' + rs[i].name + '</th>';
+                    str += '<th>' + rs[i].sex + '</th>';
+                    str += '</tr>';
+                }
+                $("#resultTB").append(str);
+                var totalCount = result.param.totalCount;
+                var pageSize = result.param.pageSize;
+                var nowPage = result.param.pageNo;
+                var pages = totalCount%pageSize==0?totalCount/pageSize:Math.ceil(totalCount/pageSize);
+                $("#total").val(pages);
+                $("#totalSpan").html(totalCount);
+                $("#sizeSpan").html(pageSize);
+                $("#nowSpan").html(nowPage);
+                $(".glyphicon-menu-left").attr('href','javascript:goPage(' + "'" + (nowPage - 1) + "'" + ')');
+                $(".glyphicon-menu-right").attr('href','javascript:goPage(' + "'" + (nowPage + 1) + "'" + ')');
+            }
+        }else{
+            $(".page").hide();
+            $("#hintMessage").text("暂无数据");
+            $('#myModalHint').modal('show');
+        }
+    }
+</script>
+<script>
     function goPage(pageNo) {
-        var totalCount = '${personPage.totalCount}';
-        var pageSize = '${personPage.pageSize}';
-        var pages = totalCount%pageSize==0?totalCount/pageSize:Math.ceil(totalCount/pageSize);
+        var pages = $("#total").val();
         if("first" == pageNo){
             pageNo = 1;
         }else if("last" == pageNo){
@@ -127,7 +163,7 @@
         }else if(pageNo < 1){
             pageNo = 1;
         }
-        href('${ctx}/page.do?pageNum=' + pageNo);
+        getResultByPage(pageNo,initPageSize);
     }
 </script>
 </html>

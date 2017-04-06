@@ -61,7 +61,6 @@
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.13.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.3.7.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.3.7.RELEASE" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.24" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.24" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aspects:4.3.7.RELEASE" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.41" />
@@ -91,6 +90,10 @@
           <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.10.2" />
           <element id="library" level="project" name="Maven: com.google.guava:guava:19.0" />
           <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.2.1" />
+          <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.24" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz-jobs:2.2.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
