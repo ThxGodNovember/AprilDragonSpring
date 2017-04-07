@@ -25,10 +25,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class SpringBootStartApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(
-                SpringBootStartApplication.class,
-                ControllerDemo.class,
-                RestControllerDemo.class,
-                TestInterfaceController.class
+                SpringBootStartApplication.class
         );
     }
 

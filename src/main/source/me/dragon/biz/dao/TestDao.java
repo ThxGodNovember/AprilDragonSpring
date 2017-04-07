@@ -16,7 +16,6 @@ import java.util.List;
  */
 
 @Repository
-@Transactional
 public interface TestDao extends BaseDao{
     // select
     List<Person> getList();

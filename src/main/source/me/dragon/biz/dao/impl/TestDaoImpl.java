@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 @Repository
-@Transactional
 public class TestDaoImpl extends GenericDao implements TestDao{
 
     @Autowired

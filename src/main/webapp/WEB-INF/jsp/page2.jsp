@@ -72,7 +72,6 @@
 </div>
 
 
-
 <div class="modal fade" id="myModalHint">
     <div class="modal-dialog">
         <div class="modal-content">

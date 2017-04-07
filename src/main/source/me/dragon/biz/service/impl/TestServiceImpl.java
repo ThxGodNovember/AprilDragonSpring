@@ -17,6 +17,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class TestServiceImpl implements TestService{
 
     @Autowired
